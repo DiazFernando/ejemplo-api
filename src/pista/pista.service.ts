@@ -54,4 +54,45 @@ export class PistaService {
         }
     }
 
-}
+    //Put para modificar pista por ID
+    public modificarPista(id:number,body:any):any{
+        let existe = false;
+        let pos = 0;
+        for(let i=0; i<this.pistasAudio.length;i++){
+            if(id===this.pistasAudio[i].id){
+                existe=true;
+                pos=i;
+            }
+        }
+        if(existe){
+            this.pistasAudio[pos].titulo = body.titulo;
+            this.pistasAudio[pos].duracion = body.duracion;
+            this.pistasAudio[pos].interprete = body.interprete;
+
+            return {"msj" : "Pista modificada",
+                "pista" : this.pistasAudio[pos]
+            }
+        }else{
+            return {"msj" : `Pista ${id} no encontrada`}
+        }
+    }
+
+
+    public eliminarPista(id:number):any{
+        let existe = false;
+        let pos = 0;
+        for(let i=0; i<this.pistasAudio.length;i++){
+            if(id===this.pistasAudio[i].id){
+                existe=true;
+                pos=i;
+            }
+        }
+        if(existe){
+            this.pistasAudio.splice(pos,1)
+            return {"msj" : `Pista ${id} eliminada`}
+        } else{
+            return {"msj" : `Pista ${id} no encontrada`}
+        }
+    
+        }
+    }
