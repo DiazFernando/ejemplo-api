@@ -8,7 +8,7 @@ import { join } from 'path';
 
 
 @Module({
-  imports: [ServeStaticModule.forRoot({ rootPath: join(__dirname,'..','client')})],
+  imports: [ServeStaticModule.forRoot({rootPath:join(__dirname,'..','client')})],
   controllers: [AppController, PistaController],
   providers: [AppService, PistaService],
 })
