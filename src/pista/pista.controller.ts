@@ -35,5 +35,10 @@ export class PistaController {
     eliminarPista(@Param('id', ParseIntPipe) id:number):any{
         return this.pistaService.eliminarPista(id);
     }
+
+    @Post('agregar')
+    agregarPista(@Body() body:any):string{
+        return this.pistaService.agregarPista(body);
+    }
          
 }

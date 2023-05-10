@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PistaService {
+    listaPistas=[];
      pistasAudio=[
-        {
+       {
             "id":1,
             "titulo": "titulo1",
             "duracion": 123,
@@ -29,12 +30,26 @@ export class PistaService {
         }
     ];
 
+    private static readonly CANT_PISTAS = 10;
+
     // get para mostrar todas las pistas
     public getPistas():any{
-        return this.pistasAudio;
-    }
+        for(let i=0; i<PistaService.CANT_PISTAS; i++){
+            let pista = {               
+                    "identificacion":i,
+                    "titulo": `titulo ${i}`,
+                    "duracion": Math.floor(Math.random()*300),
+                    "interprete": `interprete ${i}`,
+                    "fecha": `${Math.floor(Math.random()*30)}/${Math.floor(Math.random()*12)}/${Math.floor(Math.random()*99)}`
+                }
+                this.listaPistas.push(pista);
+            }
+            return this.listaPistas;
+        }
+        
+    
 
-    // get para buscar por ID
+  // get para buscar por ID
     public getPistaByID(id:number):any{
         let pista= this.pistasAudio.find(p => p.id === id);
         return pista;
@@ -94,5 +109,17 @@ export class PistaService {
             return {"msj" : `Pista ${id} no encontrada`}
         }
     
+        }
+
+        public agregarPista(body:any):string{
+            let pista = {
+                "identificacion":parseInt(body.identificador),
+                "titulo": body.titulo,
+                "duracion": parseInt(body.duracion),
+                "interprete": body.interprete,
+                "fecha": body.fecha
+            }
+            this.listaPistas.push(pista);
+            return "ok"
         }
     }
